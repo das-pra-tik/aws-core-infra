@@ -1,25 +1,31 @@
 variable "env" {
-  type = string
+  type    = string
+  default = null
 }
 
 variable "name" {
-  type = string
+  type    = string
+  default = null
 }
 
 variable "system_name" {
-  type = string
+  type    = string
+  default = null
 }
 
 variable "application_code" {
-  type = string
+  type    = string
+  default = null
 }
 
 variable "system_manager" {
-  type = string
+  type    = string
+  default = null
 }
 
 variable "cost_center" {
-  type = string
+  type    = string
+  default = null
   validation {
     condition     = length(var.cost_center) == 10 && can(tonumber(var.cost_center))
     error_message = "Cost center is a 10 digit code"
@@ -27,11 +33,8 @@ variable "cost_center" {
 }
 
 variable "component" {
-  type = string
-}
-
-variable "gxp" {
-  type = string
+  type    = string
+  default = null
 }
 
 variable "business_hours" {
@@ -40,19 +43,23 @@ variable "business_hours" {
 }
 
 variable "data_classification" {
-  type = string
+  type    = string
+  default = null
 }
 
 variable "data_access" {
-  type = string
+  type    = string
+  default = null
 }
 
 variable "support_team_email" {
-  type = string
+  type    = string
+  default = "das_pratik@outlook.com"
 }
 
 variable "server_type" {
-  type = string
+  type    = string
+  default = null
 }
 
 variable "additional_tags" {
@@ -177,11 +184,13 @@ variable "throughput" {
 }
 
 variable "volume_size" {
-  type = string
+  type    = string
+  default = "10"
 }
 
 variable "iam_instance_profile" {
-  type = string
+  type    = string
+  default = null
 }
 
 variable "user_data_required" {
