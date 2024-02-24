@@ -40,7 +40,6 @@ locals {
       "system-manager" : var.system_manager
       "cost-center" : var.cost_center
       "component" : var.component
-      "gxp" : var.gxp
       "business-hours" : var.business_hours
       "data-classification" : var.data_classification
       "data-access" : var.data_access
