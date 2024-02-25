@@ -94,11 +94,6 @@ output "public_subnets_cidr_blocks" {
   value       = compact(aws_subnet.public[*].cidr_block)
 }
 
-output "public_subnets_ipv6_cidr_blocks" {
-  description = "List of IPv6 cidr_blocks of public subnets in an IPv6 enabled VPC"
-  value       = compact(aws_subnet.public[*].ipv6_cidr_block)
-}
-
 output "public_route_table_ids" {
   description = "List of IDs of public route tables"
   value       = local.public_route_table_ids
@@ -107,11 +102,6 @@ output "public_route_table_ids" {
 output "public_internet_gateway_route_id" {
   description = "ID of the internet gateway route"
   value       = try(aws_route.public_internet_gateway[0].id, null)
-}
-
-output "public_internet_gateway_ipv6_route_id" {
-  description = "ID of the IPv6 internet gateway route"
-  value       = try(aws_route.public_internet_gateway_ipv6[0].id, null)
 }
 
 output "public_route_table_association_ids" {
@@ -138,11 +128,6 @@ output "private_subnets_cidr_blocks" {
   value       = compact(aws_subnet.private[*].cidr_block)
 }
 
-output "private_subnets_ipv6_cidr_blocks" {
-  description = "List of IPv6 cidr_blocks of private subnets in an IPv6 enabled VPC"
-  value       = compact(aws_subnet.private[*].ipv6_cidr_block)
-}
-
 output "private_route_table_ids" {
   description = "List of IDs of private route tables"
   value       = local.private_route_table_ids
@@ -151,11 +136,6 @@ output "private_route_table_ids" {
 output "private_nat_gateway_route_ids" {
   description = "List of IDs of the private nat gateway route"
   value       = aws_route.private_nat_gateway[*].id
-}
-
-output "private_ipv6_egress_route_ids" {
-  description = "List of IDs of the ipv6 egress route"
-  value       = aws_route.private_ipv6_egress[*].id
 }
 
 output "private_route_table_association_ids" {
@@ -180,11 +160,6 @@ output "database_subnet_arns" {
 output "database_subnets_cidr_blocks" {
   description = "List of cidr_blocks of database subnets"
   value       = compact(aws_subnet.database[*].cidr_block)
-}
-
-output "database_subnets_ipv6_cidr_blocks" {
-  description = "List of IPv6 cidr_blocks of database subnets in an IPv6 enabled VPC"
-  value       = compact(aws_subnet.database[*].ipv6_cidr_block)
 }
 
 output "database_subnet_group" {
