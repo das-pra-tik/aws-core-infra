@@ -125,7 +125,7 @@ variable "dhcp_options_tags" {
 ################################################################################
 
 variable "public_subnets" {
-  description = "A list of public subnets inside the VPC"
+  description = "A list of public subnets inside the VPC (CIDRs)"
   type        = list(string)
   default     = []
 }
@@ -189,7 +189,7 @@ variable "public_route_table_tags" {
 ################################################################################
 
 variable "private_subnets" {
-  description = "A list of private subnets inside the VPC"
+  description = "A list of private subnets inside the VPC(CIDRs)"
   type        = list(string)
   default     = []
 }
@@ -247,7 +247,7 @@ variable "private_route_table_tags" {
 ################################################################################
 
 variable "database_subnets" {
-  description = "A list of database subnets inside the VPC"
+  description = "A list of database subnets inside the VPC(CIDRs)"
   type        = list(string)
   default     = []
 }
