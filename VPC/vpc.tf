@@ -143,7 +143,7 @@ resource "aws_subnet" "private" {
   enable_resource_name_dns_a_record_on_launch = var.private_subnet_enable_resource_name_dns_a_record_on_launch
   private_dns_hostname_type_on_launch         = var.private_subnet_private_dns_hostname_type_on_launch
   vpc_id                                      = local.vpc_id
-
+  map_public_ip_on_launch                     = false
   tags = merge(
     {
       Name = try(
@@ -200,7 +200,7 @@ resource "aws_subnet" "database" {
   enable_resource_name_dns_a_record_on_launch = var.database_subnet_enable_resource_name_dns_a_record_on_launch
   private_dns_hostname_type_on_launch         = var.database_subnet_private_dns_hostname_type_on_launch
   vpc_id                                      = local.vpc_id
-
+  map_public_ip_on_launch                     = false
   tags = merge(
     {
       Name = try(
@@ -268,8 +268,7 @@ resource "aws_route" "database_internet_gateway" {
 }
 
 resource "aws_route" "database_nat_gateway" {
-  count = local.create_database_route_table && !var.create_database_internet_gateway_route && var.create_database_nat_gateway_route && var.enable_nat_gateway ? var.single_nat_gateway ? 1 : local.len_database_subnets : 0
-
+  count                  = local.create_database_route_table && !var.create_database_internet_gateway_route && var.create_database_nat_gateway_route && var.enable_nat_gateway ? var.single_nat_gateway ? 1 : local.len_database_subnets : 0
   route_table_id         = element(aws_route_table.database[*].id, count.index)
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id         = element(aws_nat_gateway.this[*].id, count.index)
