@@ -194,18 +194,6 @@ variable "private_subnets" {
   default     = []
 }
 
-variable "private_subnet_assign_ipv6_address_on_creation" {
-  description = "Specify true to indicate that network interfaces created in the specified subnet should be assigned an IPv6 address. Default is `false`"
-  type        = bool
-  default     = false
-}
-
-variable "private_subnet_enable_dns64" {
-  description = "Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet should return synthetic IPv6 addresses for IPv4-only destinations. Default: `true`"
-  type        = bool
-  default     = true
-}
-
 variable "private_subnet_enable_resource_name_dns_aaaa_record_on_launch" {
   description = "Indicates whether to respond to DNS queries for instance hostnames with DNS AAAA records. Default: `true`"
   type        = bool
@@ -263,19 +251,6 @@ variable "database_subnets" {
   type        = list(string)
   default     = []
 }
-
-variable "database_subnet_assign_ipv6_address_on_creation" {
-  description = "Specify true to indicate that network interfaces created in the specified subnet should be assigned an IPv6 address. Default is `false`"
-  type        = bool
-  default     = false
-}
-
-variable "database_subnet_enable_dns64" {
-  description = "Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet should return synthetic IPv6 addresses for IPv4-only destinations. Default: `true`"
-  type        = bool
-  default     = true
-}
-
 variable "database_subnet_enable_resource_name_dns_aaaa_record_on_launch" {
   description = "Indicates whether to respond to DNS queries for instance hostnames with DNS AAAA records. Default: `true`"
   type        = bool
@@ -284,18 +259,6 @@ variable "database_subnet_enable_resource_name_dns_aaaa_record_on_launch" {
 
 variable "database_subnet_enable_resource_name_dns_a_record_on_launch" {
   description = "Indicates whether to respond to DNS queries for instance hostnames with DNS A records. Default: `false`"
-  type        = bool
-  default     = false
-}
-
-variable "database_subnet_ipv6_prefixes" {
-  description = "Assigns IPv6 database subnet id based on the Amazon provided /56 prefix base 10 integer (0-256). Must be of equal length to the corresponding IPv4 subnet list"
-  type        = list(string)
-  default     = []
-}
-
-variable "database_subnet_ipv6_native" {
-  description = "Indicates whether to create an IPv6-only subnet. Default: `false`"
   type        = bool
   default     = false
 }
