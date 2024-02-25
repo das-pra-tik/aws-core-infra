@@ -61,7 +61,6 @@ resource "aws_vpc_dhcp_options" "this" {
     var.dhcp_options_tags,
   )
 }
-
 resource "aws_vpc_dhcp_options_association" "this" {
   count           = local.create_vpc && var.enable_dhcp_options ? 1 : 0
   vpc_id          = local.vpc_id
@@ -126,12 +125,6 @@ resource "aws_route" "public_internet_gateway" {
   timeouts {
     create = "5m"
   }
-}
-
-resource "aws_route" "public_internet_gateway_ipv6" {
-  count          = local.create_public_subnets && var.create_igw ? 1 : 0
-  route_table_id = aws_route_table.public[0].id
-  gateway_id     = aws_internet_gateway.this[0].id
 }
 
 ################################################################################
@@ -264,8 +257,7 @@ resource "aws_route_table_association" "database" {
 }
 
 resource "aws_route" "database_internet_gateway" {
-  count = local.create_database_route_table && var.create_igw && var.create_database_internet_gateway_route && !var.create_database_nat_gateway_route ? 1 : 0
-
+  count                  = local.create_database_route_table && var.create_igw && var.create_database_internet_gateway_route && !var.create_database_nat_gateway_route ? 1 : 0
   route_table_id         = aws_route_table.database[0].id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.this[0].id
@@ -292,22 +284,8 @@ resource "aws_route" "database_nat_gateway" {
 ################################################################################
 
 resource "aws_internet_gateway" "this" {
-  count = local.create_public_subnets && var.create_igw ? 1 : 0
-
+  count  = local.create_public_subnets && var.create_igw ? 1 : 0
   vpc_id = local.vpc_id
-
-  tags = merge(
-    { "Name" = var.name },
-    var.tags,
-    var.igw_tags,
-  )
-}
-
-resource "aws_egress_only_internet_gateway" "this" {
-  count = local.create_vpc && var.create_egress_only_igw && local.max_subnet_length > 0 ? 1 : 0
-
-  vpc_id = local.vpc_id
-
   tags = merge(
     { "Name" = var.name },
     var.tags,
@@ -325,10 +303,8 @@ locals {
 }
 
 resource "aws_eip" "nat" {
-  count = local.create_vpc && var.enable_nat_gateway && !var.reuse_nat_ips ? local.nat_gateway_count : 0
-
+  count  = local.create_vpc && var.enable_nat_gateway && !var.reuse_nat_ips ? local.nat_gateway_count : 0
   domain = "vpc"
-
   tags = merge(
     {
       "Name" = format(
@@ -345,7 +321,6 @@ resource "aws_eip" "nat" {
 
 resource "aws_nat_gateway" "this" {
   count = local.create_vpc && var.enable_nat_gateway ? local.nat_gateway_count : 0
-
   allocation_id = element(
     local.nat_gateway_ips,
     var.single_nat_gateway ? 0 : count.index,
