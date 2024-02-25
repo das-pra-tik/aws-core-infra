@@ -196,8 +196,8 @@ resource "aws_subnet" "database" {
   count                                       = local.create_database_subnets ? local.len_database_subnets : 0
   availability_zone                           = length(regexall("^[a-z]{2}-", element(var.azs, count.index))) > 0 ? element(var.azs, count.index) : null
   availability_zone_id                        = length(regexall("^[a-z]{2}-", element(var.azs, count.index))) == 0 ? element(var.azs, count.index) : null
-  cidr_block                                  = var.database_subnet_ipv6_native ? null : element(concat(var.database_subnets, [""]), count.index)
-  enable_resource_name_dns_a_record_on_launch = !var.database_subnet_ipv6_native && var.database_subnet_enable_resource_name_dns_a_record_on_launch
+  cidr_block                                  = element(concat(var.database_subnets, [""]), count.index)
+  enable_resource_name_dns_a_record_on_launch = var.database_subnet_enable_resource_name_dns_a_record_on_launch
   private_dns_hostname_type_on_launch         = var.database_subnet_private_dns_hostname_type_on_launch
   vpc_id                                      = local.vpc_id
 
