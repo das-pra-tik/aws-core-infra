@@ -76,15 +76,14 @@ locals {
 }
 
 resource "aws_subnet" "public" {
-  count                                          = local.create_public_subnets && (!var.one_nat_gateway_per_az || local.len_public_subnets >= length(var.azs)) ? local.len_public_subnets : 0
-  availability_zone                              = length(regexall("^[a-z]{2}-", element(var.azs, count.index))) > 0 ? element(var.azs, count.index) : null
-  availability_zone_id                           = length(regexall("^[a-z]{2}-", element(var.azs, count.index))) == 0 ? element(var.azs, count.index) : null
-  cidr_block                                     = element(concat(var.public_subnets, [""]), count.index)
-  enable_resource_name_dns_aaaa_record_on_launch = var.public_subnet_enable_resource_name_dns_aaaa_record_on_launch
-  enable_resource_name_dns_a_record_on_launch    = var.public_subnet_enable_resource_name_dns_a_record_on_launch
-  map_public_ip_on_launch                        = var.map_public_ip_on_launch
-  private_dns_hostname_type_on_launch            = var.public_subnet_private_dns_hostname_type_on_launch
-  vpc_id                                         = local.vpc_id
+  count                                       = local.create_public_subnets && (!var.one_nat_gateway_per_az || local.len_public_subnets >= length(var.azs)) ? local.len_public_subnets : 0
+  availability_zone                           = length(regexall("^[a-z]{2}-", element(var.azs, count.index))) > 0 ? element(var.azs, count.index) : null
+  availability_zone_id                        = length(regexall("^[a-z]{2}-", element(var.azs, count.index))) == 0 ? element(var.azs, count.index) : null
+  cidr_block                                  = element(concat(var.public_subnets, [""]), count.index)
+  enable_resource_name_dns_a_record_on_launch = var.public_subnet_enable_resource_name_dns_a_record_on_launch
+  map_public_ip_on_launch                     = var.map_public_ip_on_launch
+  private_dns_hostname_type_on_launch         = var.public_subnet_private_dns_hostname_type_on_launch
+  vpc_id                                      = local.vpc_id
 
   tags = merge(
     {
