@@ -168,6 +168,11 @@ variable "kms_key_id" {
   default = null
 }
 
+variable "root_vol_size" {
+  type = number
+  default = 10
+}
+
 variable "volume_type" {
   type    = string
   default = "gp3"
@@ -184,8 +189,9 @@ variable "throughput" {
 }
 
 variable "volume_size" {
-  type    = string
-  default = "10"
+  description = "Additional EBS block device sizes to attach to the instance"
+  type        = list(any)
+  default     = []
 }
 
 variable "iam_instance_profile" {

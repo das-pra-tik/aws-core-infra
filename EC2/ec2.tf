@@ -39,7 +39,7 @@ resource "aws_instance" "ec2_instance" {
     volume_type           = var.volume_type
     iops                  = var.iops
     throughput            = var.throughput
-    volume_size           = var.volume_size
+    volume_size           = var.root_vol_size
     tags = merge(
       local.common_tags, local.project_tags, local.additional_tags
     )
@@ -54,7 +54,7 @@ resource "aws_instance" "ec2_instance" {
 
 resource "aws_ebs_volume" "ebs_vol" {
   count             = length(var.ebs_block_devices)
-  size              = var.ebs_block_devices[count.index].volume_size
+  size              = var.volume_size[count.index]
   type              = var.volume_type
   availability_zone = var.availability_zone
   encrypted         = true
