@@ -133,12 +133,6 @@ variable "ebs_optimized" {
   default     = null
 }
 
-variable "key_name" {
-  description = "Key name of the Key Pair to use for the instance; which can be managed using the `aws_key_pair` resource"
-  type        = string
-  default     = null
-}
-
 variable "private_ip" {
   description = "Private IP address to associate with the instance in a VPC"
   type        = string
@@ -169,7 +163,7 @@ variable "kms_key_id" {
 }
 
 variable "root_vol_size" {
-  type = number
+  type    = number
   default = 10
 }
 
